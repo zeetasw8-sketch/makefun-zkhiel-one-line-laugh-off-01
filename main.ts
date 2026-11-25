@@ -16,11 +16,16 @@ function checkBounds(s: string): void {
   }
 }
 
-// The line must be real text on exactly one line: no blank entry, no breaks.
-function checkLayout(s: string): void {
+// A line of only spaces is not a real entry.
+function checkBlank(s: string): void {
   if (s.trim() === "") {
     throw new Error("blank entry: the line is only spaces");
   }
+}
+
+// The line must be real text on exactly one line: no blank entry, no breaks.
+function checkLayout(s: string): void {
+  checkBlank(s);
   if (/[\r\n]/.test(s)) {
     throw new Error("entry must stay on one line: a line break was found");
   }
